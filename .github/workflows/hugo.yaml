@@ -68,7 +68,7 @@ jobs:
           [[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true
       - name: Install Tailwind CSS CLI
         run: |
-          npm install -g tailwindcss
+          npm install @tailwindcss/cli
       - name: Configure Git
         run: |
           git config core.quotepath false
