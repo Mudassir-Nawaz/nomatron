@@ -23,7 +23,9 @@ To start using this template, you need to have some prerequisites installed on y
    theme = "nomatron"
    ```
 
-3. Run your site locally:
+3. Copy sampleSite files to your site.
+
+4. Run your site locally:
 
    ```bash
    hugo server -D
@@ -33,42 +35,24 @@ To start using this template, you need to have some prerequisites installed on y
 
 ---
 
-## Example Site
-
-This theme includes an example site located at:
-
-```
-themes/nomatron/exampleSite/
-```
-
-To run the example site:
-
-```bash
-cd themes/nomatron/exampleSite/
-hugo server
-```
-
-The example site includes:
-
-- A `config.toml` with minimal configuration
-- Sample content under `content/`
-- Example pages to demonstrate the theme
-
----
-
 ## Configuration
 
 You can customize your site using Hugo’s configuration file.  
 Example `config.toml`:
 
 ```toml
-baseURL = "https://example.com/"
-languageCode = "en-us"
-title = "My Hugo Site"
-theme = "nomatron"
+baseURL = 'https://example.org/'
+languageCode = 'en-US'
+title = 'My New Hugo Site'
 
-[params]
-  theme_switcher = true
+
+########## Menus
+[menus]
+  ########## Main/Header
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
 ```
 
 ---
@@ -79,18 +63,15 @@ Add your content to the `content/` directory of your site. For example:
 
 ```
 content/_index.md
-content/posts/first-post.md
 ```
 
-Example `posts/first-post.md`:
+Example `about.md`:
 
 ```markdown
 ---
-title: "First Post"
-date: 2025-09-30
+title: About Us
+description: Lorem ipsum dolor sit amet consectetur adipisicing elit.
 ---
-
-This is my first post using the Nomatron theme.
 ```
 
 ---
