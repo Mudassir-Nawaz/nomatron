@@ -1,252 +1,121 @@
 {{ define "main" }}
   {{/*  Hero  */}}
+  {{ with .Params.hero }}
   <section class="px-5 md:px-0 relative overflow-hidden">
-    <div class="absolute inset-0 bg-glass opacity-20"></div>
     <div class="beam-bg" id="beamBg" aria-hidden="true"></div>
     <div class="bg-gradient-to-b from-25% from-transparent to-primary/40 absolute inset-0"></div>
     <div class="relative pt-20 lg:pt-40">
       <div class="max-w-2xl mx-auto space-y-10">
-        <h1 class="text-center text-5xl font-primary text-balance font-medium tracking-tight text-white md:text-8xl leading-[125%] lg:leading-[105%]">Lorem ipsum <br> dolor sit amet adipisicing.</h1>
-        <p class="text-center text-xl font-primary font-light text-balance text-primary-light leading-[150%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, laboriosam modi dolore quibusdam sint nisi! Placeat optio veniam ad sequi, quia corporis consequuntur.</p>
+        <h1 class="text-center text-5xl font-primary text-balance font-medium tracking-tight text-white md:text-8xl leading-[125%] lg:leading-[105%]">{{ .title | safeHTML }}</h1>
+        <p class="text-center text-xl font-primary font-light text-balance text-primary-light leading-[150%]">{{ .content | safeHTML }}</p>
         <div class="flex flex-wrap gap-x-1 gap-y-5 justify-center">
-          {{ partial "components/button.html" (dict "isLink" "true" "label" "Get Started" "url" "/" ) }}
-          {{ partial "components/glass_button.html" (dict "isLink" "true" "label" "Contact Us" "url" "/" ) }}
+          {{ with .cta_btn }}
+          {{ partial "components/button.html" (dict "isLink" "true" "label" .label "url" .link ) }}
+          {{ end }}
+          {{ with .contact_btn }}
+          {{ partial "components/glass_button.html" (dict "isLink" "true" "label" .label "url" .link ) }}
+          {{ end }}
         </div>
       </div>
       <div class="max-w-7xl mx-auto bg-white/15 border border-white/25 rounded-xl px-2 p-2 mt-20">
-        <img src='{{ "images/dash-ss.png" | relURL }}' alt="" class="rounded-xl border-white/25 border cursor-pointer">
+        <img src="{{ .image | relURL }}" alt="" class="rounded-xl border-white/25 border cursor-pointer">
       </div>
       <div>
     </div>
   </section>
+  {{ end }}
   {{/*  /Hero  */}}
 
 
   {{/*  Problem  */}}
+  {{ with .Params.problem }}
   <section class="bg-gradient-to-t from-25% from-transparent to-primary/40 pt-20">
     <div class="px-5 md:px-0 py-20 container mx-auto space-y-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-10 items-center justify-between">
-        <h2 class="text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%] lg:max-w-xl">Built on Nomad. Simplified by Nomatron.</h2>
-        <p class="text-lg font-primary font-light text-balance text-primary-light leading-[150%] lg:max-w-xl justify-self-end">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga natus laboriosam odit quis nulla sit necessitatibus consequuntur minima? Fugiat quia beatae distinctio voluptatum.</p>
+        <h2 class="text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%] lg:max-w-xl">{{ .title | safeHTML }}</h2>
+        <p class="text-lg font-primary font-light text-balance text-primary-light leading-[150%] lg:max-w-xl justify-self-end">{{ .content | safeHTML }}</p>
       </div>
       <div class="max-w-7xl mx-auto">
-        <img src='{{ "images/placeholder.jpg" | relURL }}' alt="">
+        <img src="{{ .image | relURL }}" alt="">
       </div>
     </div>
   </section>
+  {{ end }}
   {{/*  /Probelm  */}}
 
   {{/*  Features  */}}
+  {{ with .Params.features }}
   <section class="py-20 px-5 md:px-0">
     <div class="container mx-auto space-y-20">
       <div class="max-w-5xl mx-auto space-y-10">
-        <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">Lorem ipsum <br> dolor sit amet adipisicing.</h2>
-        <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, laboriosam modi dolore quibusdam sint nisi! Placeat optio veniam ad sequi, quia corporis consequuntur.</p>
+        <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">{{ .title | safeHTML }}</h2>
+        <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">{{ .content | safeHTML }}</p>
       </div>
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {{ range .cards }}
         <div class="bg-glass p-5 rounded-xl space-y-3">
           <div class="flex items-center gap-3">
-            <svg class="text-primary size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M10.9201 10.4379C10.9201 9.84143 11.4036 9.35792 12 9.35792C12.5965 9.35792 13.08 9.84143 13.08 10.4379C13.08 10.8035 12.8989 11.127 12.6182 11.3236C12.3475 11.5131 12.0204 11.7662 11.7572 12.0841C11.491 12.4055 11.25 12.8426 11.25 13.3841C11.25 13.7983 11.5858 14.1341 12 14.1341C12.4142 14.1341 12.75 13.7983 12.75 13.3841C12.75 13.3091 12.7807 13.1999 12.9125 13.0408C13.0471 12.8782 13.2442 12.7164 13.4785 12.5523C14.143 12.0871 14.58 11.3136 14.58 10.4379C14.58 9.01301 13.4249 7.85792 12 7.85792C10.5751 7.85792 9.42006 9.01301 9.42006 10.4379C9.42006 10.8521 9.75584 11.1879 10.1701 11.1879C10.5843 11.1879 10.9201 10.8521 10.9201 10.4379Z" fill="#323544"/>
-              <path fill="currentColor" d="M11.9993 14.6421C11.5851 14.6421 11.2493 14.9779 11.2493 15.3921C11.2493 15.8063 11.5851 16.1421 11.9993 16.1421C12.4135 16.1421 12.75 15.8063 12.75 15.3921C12.75 14.9779 12.4135 14.6421 11.9993 14.6421Z" fill="#323544"/>
-              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM3.5 12C3.5 7.30558 7.30558 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C7.30558 20.5 3.5 16.6944 3.5 12Z" fill="#323544"/>
-            </svg>
-            <span class="text-xl font-semibold text-white font-primary">Lorem ipsum</span>
+            <i class="iconoir-{{ .icon }} text-3xl text-primary"></i>
+            <span class="text-xl font-semibold text-white font-primary">{{ .title | safeHTML }}</span>
           </div>
-          <p class="font-primary text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo nam blanditiis.</p>
+          <p class="font-primary text-white/80">{{ .content | safeHTML }}</p>
         </div>
-        <div class="bg-glass p-5 rounded-xl space-y-3">
-          <div class="flex items-center gap-3">
-            <svg class="text-primary size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M10.9201 10.4379C10.9201 9.84143 11.4036 9.35792 12 9.35792C12.5965 9.35792 13.08 9.84143 13.08 10.4379C13.08 10.8035 12.8989 11.127 12.6182 11.3236C12.3475 11.5131 12.0204 11.7662 11.7572 12.0841C11.491 12.4055 11.25 12.8426 11.25 13.3841C11.25 13.7983 11.5858 14.1341 12 14.1341C12.4142 14.1341 12.75 13.7983 12.75 13.3841C12.75 13.3091 12.7807 13.1999 12.9125 13.0408C13.0471 12.8782 13.2442 12.7164 13.4785 12.5523C14.143 12.0871 14.58 11.3136 14.58 10.4379C14.58 9.01301 13.4249 7.85792 12 7.85792C10.5751 7.85792 9.42006 9.01301 9.42006 10.4379C9.42006 10.8521 9.75584 11.1879 10.1701 11.1879C10.5843 11.1879 10.9201 10.8521 10.9201 10.4379Z" fill="#323544"/>
-              <path fill="currentColor" d="M11.9993 14.6421C11.5851 14.6421 11.2493 14.9779 11.2493 15.3921C11.2493 15.8063 11.5851 16.1421 11.9993 16.1421C12.4135 16.1421 12.75 15.8063 12.75 15.3921C12.75 14.9779 12.4135 14.6421 11.9993 14.6421Z" fill="#323544"/>
-              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM3.5 12C3.5 7.30558 7.30558 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C7.30558 20.5 3.5 16.6944 3.5 12Z" fill="#323544"/>
-            </svg>
-            <span class="text-xl font-semibold text-white font-primary">Lorem ipsum</span>
-          </div>
-          <p class="font-primary text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo nam blanditiis.</p>
-        </div>
-        <div class="bg-glass p-5 rounded-xl space-y-3">
-          <div class="flex items-center gap-3">
-            <svg class="text-primary size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M10.9201 10.4379C10.9201 9.84143 11.4036 9.35792 12 9.35792C12.5965 9.35792 13.08 9.84143 13.08 10.4379C13.08 10.8035 12.8989 11.127 12.6182 11.3236C12.3475 11.5131 12.0204 11.7662 11.7572 12.0841C11.491 12.4055 11.25 12.8426 11.25 13.3841C11.25 13.7983 11.5858 14.1341 12 14.1341C12.4142 14.1341 12.75 13.7983 12.75 13.3841C12.75 13.3091 12.7807 13.1999 12.9125 13.0408C13.0471 12.8782 13.2442 12.7164 13.4785 12.5523C14.143 12.0871 14.58 11.3136 14.58 10.4379C14.58 9.01301 13.4249 7.85792 12 7.85792C10.5751 7.85792 9.42006 9.01301 9.42006 10.4379C9.42006 10.8521 9.75584 11.1879 10.1701 11.1879C10.5843 11.1879 10.9201 10.8521 10.9201 10.4379Z" fill="#323544"/>
-              <path fill="currentColor" d="M11.9993 14.6421C11.5851 14.6421 11.2493 14.9779 11.2493 15.3921C11.2493 15.8063 11.5851 16.1421 11.9993 16.1421C12.4135 16.1421 12.75 15.8063 12.75 15.3921C12.75 14.9779 12.4135 14.6421 11.9993 14.6421Z" fill="#323544"/>
-              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM3.5 12C3.5 7.30558 7.30558 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C7.30558 20.5 3.5 16.6944 3.5 12Z" fill="#323544"/>
-            </svg>
-            <span class="text-xl font-semibold text-white font-primary">Lorem ipsum</span>
-          </div>
-          <p class="font-primary text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo nam blanditiis.</p>
-        </div>
-        <div class="bg-glass p-5 rounded-xl space-y-3">
-          <div class="flex items-center gap-3">
-            <svg class="text-primary size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M10.9201 10.4379C10.9201 9.84143 11.4036 9.35792 12 9.35792C12.5965 9.35792 13.08 9.84143 13.08 10.4379C13.08 10.8035 12.8989 11.127 12.6182 11.3236C12.3475 11.5131 12.0204 11.7662 11.7572 12.0841C11.491 12.4055 11.25 12.8426 11.25 13.3841C11.25 13.7983 11.5858 14.1341 12 14.1341C12.4142 14.1341 12.75 13.7983 12.75 13.3841C12.75 13.3091 12.7807 13.1999 12.9125 13.0408C13.0471 12.8782 13.2442 12.7164 13.4785 12.5523C14.143 12.0871 14.58 11.3136 14.58 10.4379C14.58 9.01301 13.4249 7.85792 12 7.85792C10.5751 7.85792 9.42006 9.01301 9.42006 10.4379C9.42006 10.8521 9.75584 11.1879 10.1701 11.1879C10.5843 11.1879 10.9201 10.8521 10.9201 10.4379Z" fill="#323544"/>
-              <path fill="currentColor" d="M11.9993 14.6421C11.5851 14.6421 11.2493 14.9779 11.2493 15.3921C11.2493 15.8063 11.5851 16.1421 11.9993 16.1421C12.4135 16.1421 12.75 15.8063 12.75 15.3921C12.75 14.9779 12.4135 14.6421 11.9993 14.6421Z" fill="#323544"/>
-              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM3.5 12C3.5 7.30558 7.30558 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C7.30558 20.5 3.5 16.6944 3.5 12Z" fill="#323544"/>
-            </svg>
-            <span class="text-xl font-semibold text-white font-primary">Lorem ipsum</span>
-          </div>
-          <p class="font-primary text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo nam blanditiis.</p>
-        </div>
-        <div class="bg-glass p-5 rounded-xl space-y-3">
-          <div class="flex items-center gap-3">
-            <svg class="text-primary size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M10.9201 10.4379C10.9201 9.84143 11.4036 9.35792 12 9.35792C12.5965 9.35792 13.08 9.84143 13.08 10.4379C13.08 10.8035 12.8989 11.127 12.6182 11.3236C12.3475 11.5131 12.0204 11.7662 11.7572 12.0841C11.491 12.4055 11.25 12.8426 11.25 13.3841C11.25 13.7983 11.5858 14.1341 12 14.1341C12.4142 14.1341 12.75 13.7983 12.75 13.3841C12.75 13.3091 12.7807 13.1999 12.9125 13.0408C13.0471 12.8782 13.2442 12.7164 13.4785 12.5523C14.143 12.0871 14.58 11.3136 14.58 10.4379C14.58 9.01301 13.4249 7.85792 12 7.85792C10.5751 7.85792 9.42006 9.01301 9.42006 10.4379C9.42006 10.8521 9.75584 11.1879 10.1701 11.1879C10.5843 11.1879 10.9201 10.8521 10.9201 10.4379Z" fill="#323544"/>
-              <path fill="currentColor" d="M11.9993 14.6421C11.5851 14.6421 11.2493 14.9779 11.2493 15.3921C11.2493 15.8063 11.5851 16.1421 11.9993 16.1421C12.4135 16.1421 12.75 15.8063 12.75 15.3921C12.75 14.9779 12.4135 14.6421 11.9993 14.6421Z" fill="#323544"/>
-              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM3.5 12C3.5 7.30558 7.30558 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C7.30558 20.5 3.5 16.6944 3.5 12Z" fill="#323544"/>
-            </svg>
-            <span class="text-xl font-semibold text-white font-primary">Lorem ipsum</span>
-          </div>
-          <p class="font-primary text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum explicabo nam blanditiis.</p>
-        </div>
+        {{ end }}
       </div>
     </div>
   </section>
+  {{ end }}
   {{/*  /Features  */}}
 
 
   {{/*  Audience  */}}
+  {{ with .Params.audience }}
   <section class="py-20 px-5 md:px-0 bg-gradient-to-b from-25% from-transparent to-primary/40">
     <div class="container mx-auto space-y-20">
+      {{ range .teams }}
       <div class="space-y-20">
         <div class="max-w-5xl mx-auto space-y-10">
-          <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">Platforms Team</h2>
-          <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, laboriosam modi dolore quibusdam sint nisi! Placeat optio veniam ad sequi, quia corporis consequuntur.</p>
+          <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">{{ .title | safeHTML }}</h2>
+          <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">{{ .content | safeHTML }}</p>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-5">
+          {{ range .cards }}
           <div class="items-center bg-glass rounded-lg shadow sm:flex">
               <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
               <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
+                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">{{ .name | safeHTML }}</h3>
+                  <span class="text-primary-green font-medium font-primary mt-3">{{ .position | safeHTML }}</span>
+                  <p class="mt-5 font-light text-primary-light font-primary">{{ .description | safeHTML }}</p>
               </div>
-          </div> 
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
+          </div>
+          {{ end }}
         </div>
       </div>
-      <div class="space-y-20">
-        <div class="max-w-5xl mx-auto space-y-10">
-          <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">Platforms Team</h2>
-          <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, laboriosam modi dolore quibusdam sint nisi! Placeat optio veniam ad sequi, quia corporis consequuntur.</p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-5">
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-        </div>
-      </div>
-      <div class="space-y-20">
-        <div class="max-w-5xl mx-auto space-y-10">
-          <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">Platforms Team</h2>
-          <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, laboriosam modi dolore quibusdam sint nisi! Placeat optio veniam ad sequi, quia corporis consequuntur.</p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-5">
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-          <div class="items-center bg-glass rounded-lg shadow sm:flex">
-              <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-              <div class="p-5">
-                  <h3 class="text-xl font-bold font-primary tracking-tight text-white">Bonnie Green</h3>
-                  <span class="text-primary-light font-primary mt-3">CEO & Web Developer</span>
-                  <p class="mt-5 font-light text-primary-light font-primary">Bonnie drives the technical strategy of the flowbite platform and brand.</p>
-              </div>
-          </div> 
-        </div>
-      </div>
+      {{ end }}
     </div>
   </section>
+  {{ end }}
   {{/*  /Audience  */}}
 
   {{/*  Enterprise  */}}
+  {{ with .Params.enterprise }}
   <section class="py-20 px-5 bg-gradient-to-t from-25% from-transparent to-primary/40">
     <div class="container mx-auto space-y-20">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-20 items-center">
         <div class="max-w-5xl mx-auto space-y-10">
-          <h2 class="text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">My cool heading</h2>
-          <p class="text-lg font-primary font-light text-balance text-primary-light leading-[150%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, laboriosam modi dolore quibusdam sint nisi! Placeat optio veniam ad sequi, quia corporis consequuntur.</p>
+          <h2 class="text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">{{ .title | safeHTML }}</h2>
+          <p class="text-lg font-primary font-light text-balance text-primary-light leading-[150%]">{{ .content | safeHTML }}</p>
         </div>   
         <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-5 lg:max-w-4xl lg:justify-self-end">
+          {{ range .feature_cards }}
           <div class="space-y-5">
             <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
+              <i class="iconoir-{{ .icon }} text-3xl text-white"></i>
             </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
+            <h4 class="text-xl font-semibold font-primary text-white">{{ .title | safeHTML }}</h4>
+            <p class="text-sm font-primary text-white">{{ .content | safeHTML }}</p>
           </div>
-          <div class="space-y-5">
-            <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
-            </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
-          </div>
-          <div class="space-y-5">
-            <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
-            </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
-          </div>
+          {{ end }}
         </div>   
       </div>
 
@@ -263,78 +132,51 @@
                     blur-2xl opacity-70 
                     animate-[pulseGlow_6s_ease-in-out_infinite]"></div>
         <div class="bg-glass p-10 rounded-xl relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
+          {{ range .cards }}
           <div class="space-y-5">
             <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
+              <i class="iconoir-{{ .icon }} text-3xl text-white"></i>
             </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
+            <h4 class="text-xl font-semibold font-primary text-white">{{ .title | safeHTML }}</h4>
+            <p class="text-sm font-primary text-white">{{ .content | safeHTML }}</p>
           </div>
-
-          <div class="space-y-5">
-            <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
-            </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
-          </div>
-
-          <div class="space-y-5">
-            <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
-            </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
-          </div>
-
-          <div class="space-y-5">
-            <div class="inline-flex justify-center items-center rounded-full size-12 bg-primary/80">
-              <svg class="size-6 text-primary-green" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.4337 6.35C16.4337 8.74 14.4937 10.69 12.0937 10.69L12.0837 10.68C9.69365 10.68 7.74365 8.73 7.74365 6.34C7.74365 3.95 9.70365 2 12.0937 2C14.4837 2 16.4337 3.96 16.4337 6.35ZM14.9337 6.34C14.9337 4.78 13.6637 3.5 12.0937 3.5C10.5337 3.5 9.25365 4.78 9.25365 6.34C9.25365 7.9 10.5337 9.18 12.0937 9.18C13.6537 9.18 14.9337 7.9 14.9337 6.34Z" fill="#323544"/>
-                <path fill="currentColor" d="M12.0235 12.1895C14.6935 12.1895 16.7835 12.9395 18.2335 14.4195V14.4095C20.2801 16.4956 20.2739 19.2563 20.2735 19.4344L20.2735 19.4395C20.2635 19.8495 19.9335 20.1795 19.5235 20.1795H19.5135C19.0935 20.1695 18.7735 19.8295 18.7735 19.4195C18.7735 19.3695 18.7735 17.0895 17.1535 15.4495C15.9935 14.2795 14.2635 13.6795 12.0235 13.6795C9.78346 13.6795 8.05346 14.2795 6.89346 15.4495C5.27346 17.0995 5.27346 19.3995 5.27346 19.4195C5.27346 19.8295 4.94346 20.1795 4.53346 20.1795C4.17346 20.1995 3.77346 19.8595 3.77346 19.4495L3.77345 19.4448C3.77305 19.2771 3.76646 16.506 5.81346 14.4195C7.26346 12.9395 9.35346 12.1895 12.0235 12.1895Z" fill="#323544"/>
-              </svg>
-            </div>
-            <h4 class="text-xl font-semibold font-primary text-white">Lorem, ipsum.</h4>
-            <p class="text-sm font-primary text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta alias fuga culpa eos.</p>
-          </div>
+          {{ end }}
         </div>
       </div>
     </div>
   </section>
+  {{ end }}
   {{/*  /Enterprise  */}}
 
   {{/*  Vision  */}}
+  {{ with .Params.vision }}
   <section class="px-5 md:px-0 py-20">
     <div class="container mx-auto space-y-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-10 items-center justify-between">
-        <h2 class="text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%] lg:max-w-xl">Built on Nomad. Simplified by Nomatron.</h2>
-        <p class="text-lg font-primary font-light text-balance text-primary-light leading-[150%] lg:max-w-xl justify-self-end">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga natus laboriosam odit quis nulla sit necessitatibus consequuntur minima? Fugiat quia beatae distinctio voluptatum.</p>
+        <h2 class="text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%] lg:max-w-xl">{{ .title | safeHTML }}</h2>
+        <p class="text-lg font-primary font-light text-balance text-primary-light leading-[150%] lg:max-w-xl justify-self-end">{{ .content | safeHTML }}</p>
       </div>
       <div class="max-w-7xl mx-auto">
-        <img src='{{ "images/placeholder.jpg" | relURL }}' alt="">
+        <img src="{{ .image | relURL }}" alt="">
       </div>
     </div>
   </section>
+  {{ end }}
   {{/*  /Vision  */}}
 
   {{/*  CTA  */}}
+  {{ with .Params.cta }}
   <section class="container mx-auto bg-primary-green rounded-xl p-5 md:p-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <h1 class="text-3xl font-primary text-balance font-medium tracking-tight text-primary-dark md:text-5xl leading-[125%]">Lorem ipsum dolor sit amet adipisicing.</h1>
+        <h3 class="text-3xl font-primary text-balance font-medium tracking-tight text-primary-dark md:text-5xl leading-[125%]">{{ .title | safeHTML }}</h3>
         <div class="space-y-10 justify-self-end">
-          <p class="text-xl font-primary text-balance text-primary-dark leading-[150%] lg:max-w-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo hic dolore sed illum.</p>
-          {{ partial "components/glass_button.html" (dict "isLink" "true" "label" "Get Started Now") }}
+          <p class="text-xl font-primary text-balance text-primary-dark leading-[150%] lg:max-w-xl">{{ .content | safeHTML }}</p>
+          {{ with .button }}
+          {{ partial "components/glass_button.html" (dict "isLink" "true" "label" .label "url" .link ) }}
+          {{ end }}
         </div>
     </div>
   </section>
+  {{ end }}
   {{/*  /CTA  */}}
 {{ end }}

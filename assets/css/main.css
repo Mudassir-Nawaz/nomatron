@@ -20,6 +20,10 @@
     --font-primary: "Poppins", sans-serif;
 }
 
+*::selection {
+    background-color: var(--color-primary);
+}
+
 .hero-pattern {
     background: radial-gradient(55.8% 55.49% at 50% 55.49%, #264d4c 0%, rgba(25, 48, 47, 0) 100%)
 }

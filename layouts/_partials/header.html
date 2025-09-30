@@ -5,7 +5,9 @@
                 <img src="{{ site.Params.header.logo | relURL }}" class="mr-3 h-6 sm:h-9" alt="{{ site.Title }} Logo" />
             </a>
             <div class="flex items-center lg:order-2">
-                {{ partial "components/button.html" (dict "isLink" "true" "label" "Get Started" "url" "/") }}
+                {{ with site.Params.header.cta_btn }}
+                {{ partial "components/button.html" (dict "isLink" "true" "label" .label "url" .link) }}
+                {{ end }}
                 <button id="menu-toggler" type="button" class="flex justify-center items-center h-10 w-10 text-sm text-gray-500 rounded-lg lg:hidden" aria-controls="mobile-menu-2" aria-expanded="false">
                     <div class="space-y-1.5 relative" id="menu-mark">
                         <div class="h-0.5 w-5 bg-white rounded-lg top-1/2 left-1/2 origin-center transition"></div>
