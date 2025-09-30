@@ -15,11 +15,7 @@ To start using this template, you need to have some prerequisites installed on y
 
 ## Installation
 
-1. Add the theme to your Hugo site:
-
-   ```bash
-   git clone https://github.com/yourname/nomatron.git themes/nomatron
-   ```
+1. Add the theme to your Hugo site.
 
 2. Enable the theme in your site configuration (`config.toml`):
 
