@@ -78,7 +78,7 @@
           <h2 class="text-center text-3xl font-primary text-balance font-medium tracking-tight text-white md:text-5xl leading-[125%]">{{ .title | safeHTML }}</h2>
           <p class="text-center text-lg font-primary font-light text-balance text-primary-light leading-[150%]">{{ .content | safeHTML }}</p>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {{ range .cards }}
           <div class="items-center bg-glass rounded-lg shadow sm:flex">
               <img class="w-full lg:w-60 lg:h-50 lg:object-cover lg:object-top rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
@@ -169,10 +169,9 @@
   <section class="container mx-auto bg-primary-green rounded-xl p-5 lg:p-10 mt-20">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <h3 class="text-3xl font-primary text-balance font-medium tracking-tight text-primary-dark md:text-5xl leading-[125%]">{{ .title | safeHTML }}</h3>
-        <div class="space-y-10 justify-self-end">
-          <p class="text-xl font-primary text-balance text-primary-dark leading-[150%] lg:max-w-xl">{{ .content | safeHTML }}</p>
+        <div class="flex md:justify-end">
           {{ with .button }}
-          {{ partial "components/glass_button.html" (dict "isLink" "true" "label" .label "url" .link ) }}
+          {{ partial "components/glass_button.html" (dict "isLink" "true" "label" .label "url" .link) }}
           {{ end }}
         </div>
     </div>

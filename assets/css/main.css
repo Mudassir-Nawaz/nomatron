@@ -3,6 +3,7 @@
 @plugin "flowbite/plugin";
 @source "./flowbite"; */
 @source "hugo_stats.json";
+@plugin "@tailwindcss/typography";
 
 @theme {
     --color-primary: #0F403D;
@@ -22,6 +23,7 @@
 
 *::selection {
     background-color: var(--color-primary);
+    color: white;
 }
 
 .hero-pattern {

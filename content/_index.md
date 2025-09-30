@@ -148,7 +148,6 @@ vision:
 ################ CTA
 cta:
     title: "Lorem ipsum dolor sit amet adipisicing."
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo hic dolore sed illum."
     button:
         label: "Get Started Now"
         link: /

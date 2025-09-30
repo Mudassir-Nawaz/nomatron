@@ -12,34 +12,31 @@ title = 'My New Hugo Site'
     weight = 10
 
   [[menus.main]]
-    name = 'Posts'
-    pageRef = '/posts'
+    name = "About"
+    pageRef = "/about/"
     weight = 20
 
   [[menus.main]]
-    name = 'Tags'
-    pageRef = '/tags'
+    name = "Waitlist"
+    pageRef = "/Waitlist/"
     weight = 30
 
   ########## Resources/Footer
   [[menus.resources]]
     name = 'Home'
-    pageRef = '/'
+    url = '/'
     weight = 10
+
   [[menus.resources]]
     name = 'About'
-    pageRef = '/about/'
+    url = '/about/'
     weight = 20
 
   ########## Legal/Footer
   [[menus.legal]]
     name = 'Privacy Policy'
-    pageRef = '/'
+    url = '/privacy-policy/'
     weight = 10
-  [[menus.legal]]
-    name = 'Terms & Conditions'
-    pageRef = '/'
-    weight = 20
 
 
 
