@@ -1,4 +1,4 @@
-baseURL = 'https://example.com/'
+baseURL = 'https://nomatron-demo.netlify.app/'
 languageCode = 'en-US'
 title = 'My New Hugo Site'
 theme = 'nomatron'
@@ -34,6 +34,11 @@ theme = 'nomatron'
     name = 'About'
     url = '/about/'
     weight = 20
+
+  [[menus.resources]]
+    name = 'Contact Us'
+    url = 'mailto:founders@nomatron.io'
+    weight = 30
 
   ########## Legal/Footer
   [[menus.legal]]
